@@ -16,14 +16,25 @@ function earning() {
     const goal = data?.[0]?.goal
     const earning = data?.[0]?.transactions?.map(item=> item.type? item.amount: 0)
     const totalearning = earning?.reduce((total,num)=> total+num,0)
-
-    const earningper= totalearning>goal?(goal-totalearning)/goal*100:100
+    // const earningavg = (goal-totalearning)<0? goal: goal-totalearning
+    const earningper= ((goal-totalearning)<0? goal: goal-totalearning)/goal*100
 
 
     useGSAP(()=>{
-        gsap.from(rotationanimation.current,{
-            scale:0,
-        })
+        gsap.fromTo(rotationanimation.current,
+          {
+            opacity: 0,
+            scale: 0.5,
+            rotation: 0
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotation: 360,
+            duration: 1,
+            ease: "power2.out"
+        }
+        )
     })
   return (
     <>

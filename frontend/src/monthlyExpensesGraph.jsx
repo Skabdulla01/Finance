@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
 function monthlyExpensesGraph() {
+  const container = useRef();
   const [data,setdata]=useState([])
         useEffect(()=>{
           fetch("/financedata.json")
@@ -11,12 +12,9 @@ function monthlyExpensesGraph() {
           .then(data=>setdata(data))
         },[])
     
-    // const graph = {"jan":0,"feb":2500,"mar":5400,"apr":2300,"may":7200,"jun":4500,"jul":6530,"aug":3000,"sep":2341,"oct":1200,"nov":900,"dec":1000}
     
-    // const monthgraph = data?.[0]?.transactions?.map(item=> item.type && item.date?.slice(5, 7)==="01"? item.amount: 0)?.reduce((total,num)=> total+num,0) - data?.[0]?.transactions?.map(item=> !item.type && item.date?.slice(5, 7)==="01"? item.amount: 0)?.reduce((total,num)=> total+num,0)
-    // console.log(monthgraph)
 
-    const graph = {};
+    const graph = [];
 
 for (let i = 1; i <= 12; i++) {
   const num = ("0" + i).slice(-2);
@@ -30,37 +28,31 @@ for (let i = 1; i <= 12; i++) {
           : total - item.amount; 
       }, 0) || 0;
 
-  graph[num] = monthgraph;
+  graph.push(monthgraph);
 }
 
-
-    // useGSAP(()=>{
-    //     gsap.from(".bar",{
-    //         height:0,
-    //         duration:1,
-    //         stagger:0.1,
-    //         delay:1,
-    //         ease:"bounce.out"
-    //     })
-    // },[])
+    useGSAP(()=>{
+      if (data.length === 0) return;
+        gsap.from(container.current.querySelectorAll(".bar"),{
+            height:0,
+            duration:1,
+            stagger:0.1,
+            delay:1,
+            ease:"bounce.out"
+        })
+    },[data])
   return (
     <>
     <div className="w-[65%] rounded-2xl bg-[#EAF3FF] h-100 shadow-2xl p-5 ">
         <h1 className='text-[2vw]'>Monthly Expenses</h1>
         <div className="h-80 w-full flex justify-center items-center">
-          <div className="relative h-70 w-[90%] flex justify-evenly items-end border-l-3 border-b-3 border-black">
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["01"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["02"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["03"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["04"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["05"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["06"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["07"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["08"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["09"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["10"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["11"]*0.0125}%`}}></div>
-            <div className="bar w-[6%] bg-black flex items-center justify-center" style={{height:`${graph["12"]*0.0125}%`}}></div>
+          <div ref={container} className="relative h-70 w-[90%] flex justify-evenly items-end border-l-3 border-b-3 border-black">
+            {
+              graph.map((val,index)=>(
+                <div key={index} className="bar w-[6%]  bg-black flex items-center justify-center" style={{height:`${val*0.0125}%`}}></div>
+              ))
+            }
+
             <div className="absolute bottom-0 w-full flex justify-evenly translate-y-6  text-[1vw]">
               {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((m) => (
                 <div className='w-[6%] text-center' key={m}>{m}</div>

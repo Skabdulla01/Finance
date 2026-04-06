@@ -2,7 +2,7 @@ import React from 'react'
 
 function wallet() {
   return (
-    <div>wallet</div>
+    <>wallet</>
   )
 }
 
