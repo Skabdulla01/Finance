@@ -8,9 +8,7 @@ function layout() {
     <>
     <div className="flex">
       <Sidebar />
-      <div className="flex-1">
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
     </>
   )

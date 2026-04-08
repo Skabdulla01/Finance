@@ -2,7 +2,11 @@ import React from 'react'
 
 function wallet() {
   return (
-    <>wallet</>
+    <>
+    <div className="h-screen bg-amber-500 w-full">
+
+    </div>
+    </>
   )
 }
 
