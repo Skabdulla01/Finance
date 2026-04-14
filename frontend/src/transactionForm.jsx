@@ -1,5 +1,7 @@
 import React, { use } from 'react'
 import { useForm } from "react-hook-form"
+import { darkmodeContext } from './context/darkmodeContext';
+import { useContext } from 'react';
 
 function transactionForm({setform}) {
     const {
@@ -8,6 +10,10 @@ function transactionForm({setform}) {
     watch,
     formState: { errors },
   } = useForm()
+
+    const { darkModeData } = useContext(darkmodeContext);
+
+    console.log(darkModeData)
 
   
   
@@ -30,8 +36,8 @@ function transactionForm({setform}) {
   }
   return (
     <>
-        <div className="fixed z-10 h-screen w-full flex justify-center items-center">
-            <div className="flex flex-col justify-between w-[30%] rounded-2xl bg-[#EAF3FF] h-[75vh] shadow-2xl p-5 ">
+        <div className="fixed z-10 h-screen w-full shadow-2xl flex justify-center items-center">
+            <div className="flex flex-col justify-between w-[30%] rounded-2xl bg-[#EAF3FF] h-[75vh] shadow-2xl p-5 " style={{backgroundColor: darkModeData?.barcolor}}>
                 <div className="w-full h-[3vw] flex items-center justify-between">
                     <h3 className='text-[2vw]'>Add New Transaction</h3>
                     <button onClick={()=>(setform(false))}>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { darkmodeContext } from './context/darkmodeContext';
+import { useContext } from 'react';
 
 function earning() {
     const rotationanimation = useRef(null);
@@ -18,6 +20,9 @@ function earning() {
     const totalearning = earning?.reduce((total,num)=> total+num,0)
     // const earningavg = (goal-totalearning)<0? goal: goal-totalearning
     const earningper= ((goal-totalearning)<0? goal: goal-totalearning)/goal*100
+
+    const { darkModeData } = useContext(darkmodeContext);
+
 
 
     useGSAP(()=>{
@@ -38,12 +43,12 @@ function earning() {
     })
   return (
     <>
-    <div className="rounded-2xl bg-[#EAF3FF] p-5 shadow-2xl h-60 w-[31%]  flex flex-col justify-between items-center">
+    <div className="rounded-2xl bg-[#EAF3FF] p-5 shadow-2xl h-60 w-[31%] flex flex-col justify-between items-center" style={{backgroundColor: darkModeData?.barcolor,color:darkModeData?.bartxt}}>
             <div className="w-full">
             <h1 className='text-[2vw]'>Earning</h1>
             </div>
             <div className="w-33 h-33 rounded-full flex items-center justify-center" style={{background: `conic-gradient(white 0% ${earningper}%, black ${earningper}% 100%)`}} ref={rotationanimation}>
-              <div className="w-30 h-30 rounded-full flex items-center text-[1.5vw] justify-center bg-[#EAF3FF]">
+              <div className="w-30 h-30 rounded-full flex items-center text-[1.5vw] justify-center bg-[#EAF3FF]" style={{backgroundColor: darkModeData?.barcolor}}>
                 <p>${totalearning}</p>
               </div>
             </div>

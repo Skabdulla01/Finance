@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Outlet } from "react-router-dom";
 import Sidebar from "./sidebar";
+import { darkmodeContext } from './context/darkmodeContext';
 
+function Layout() {
+  const [darkModeData, setDarkModeData] = useState(null);
 
-function layout() {
   return (
-    <>
-    <div className="flex">
-      <Sidebar />
-      <Outlet />
-    </div>
-    </>
+    <darkmodeContext.Provider value={{ darkModeData, setDarkModeData }}>
+      <div className="flex">
+        <Sidebar />
+        <Outlet />
+      </div>
+    </darkmodeContext.Provider>
   )
 }
 
-export default layout
+export default Layout;

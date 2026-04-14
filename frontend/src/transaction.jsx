@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Loading from './loading'
 import TransactionForm from './transactionForm'
+import { useContext } from 'react'
+import { darkmodeContext } from './context/darkmodeContext'
 
 function transaction() {
   const [loading , setloading] = useState(false)
@@ -15,6 +17,8 @@ function transaction() {
     },[])
 
     const searchdata =data?.[0]?.transactions
+    const { darkModeData } = useContext(darkmodeContext);
+
   
     
     const [search,setsearch] = useState("")
@@ -24,8 +28,8 @@ function transaction() {
   const Earn = ()=>{
         return(
           <div className="rounded-xl h-[2.5vw] w-[2.5vw] bg-green-400 flex justify-center items-center text-[#008000]">
-                    <span className="material-symbols-outlined">arrow_outward</span>
-                  </div>
+            <span className="material-symbols-outlined">arrow_outward</span>
+          </div>
         )}
       const Expense = ()=>{
         return(
@@ -38,7 +42,7 @@ function transaction() {
     <>
     {form && <TransactionForm setform={setform} />}
     
-    <div className="h-screen w-full flex flex-col items-center justify-evenly">
+    <div className="h-screen w-full flex flex-col items-center justify-evenly" style={{backgroundColor: darkModeData?.bgcolor,color:darkModeData?.bartxt}}>
       <div className="w-[95%] h-[8vh] flex items-center justify-between">
         <h1 className='text-[3vw] leading-0'><b>Transaction</b></h1>
           <button className='rounded-xl w-[8%] h-[3vw] text-[1.5vw] cursor-pointer flex border-2 border-black items-center justify-evenly' onClick={()=>(setform(true))}>
@@ -48,7 +52,7 @@ function transaction() {
             <h3 className='text-[1.2vw]'>Add</h3>
           </button>
       </div>
-      <div className="h-[85vh] w-[95%] flex flex-col  bg-[#EAF3FF]">
+      <div className="h-[85vh] w-[95%] flex flex-col  bg-[#EAF3FF]" style={{backgroundColor: darkModeData?.barcolor}}>
         <div className="w-full">
             {/* <input type="search" placeholder='Search' className='text-center rounded-xl h-[5vh] border-2 border-black' value={search} onChange={(e) => setsearch(e.target.value)} /> */}
             <input type="search" placeholder='Search' className='w-full text-center rounded-xl h-[7vh] border-2 border-black' value={search} onChange={(e) => setsearch(e.target.value)}/>

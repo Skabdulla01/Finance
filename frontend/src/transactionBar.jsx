@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import Loading from './loading'
+import { useContext } from 'react';
+import { darkmodeContext } from './context/darkmodeContext';
 
 function transactionBar() {
   const [loading , setloading] = useState(false)
@@ -14,6 +16,8 @@ function transactionBar() {
     },[])
 
     const searchdata =data?.[0]?.transactions
+    const { darkModeData } = useContext(darkmodeContext);
+    
   
     
     const [search,setsearch] = useState("")
@@ -35,7 +39,7 @@ function transactionBar() {
       }
   return (
     <>
-    <div className="w-[32%] h-100 rounded-2xl bg-[#EAF3FF] shadow-2xl p-5 flex flex-col justify-between">
+    <div className="w-[32%] h-100 rounded-2xl bg-[#EAF3FF] shadow-2xl p-5 flex flex-col justify-between" style={{backgroundColor: darkModeData?.barcolor,color:darkModeData?.bartxt}}>
             <h1 className='text-[2vw]'>Transaction</h1>
             <input type="search" placeholder='Search' className='text-center rounded-xl h-[5vh] border-2 border-black' value={search} onChange={(e) => setsearch(e.target.value)} />
             

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css'
 import Dashboard from './dashboard'
 import Transaction from './transaction';
 import Wallet from './wallet';

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { darkmodeContext } from './context/darkmodeContext';
+import { useContext } from 'react';
 
 function walletBar() {
   const [data,setdata]=useState([])
@@ -18,6 +20,7 @@ function walletBar() {
     const totalexpenses = expenses?.reduce((total,num)=> total+num,0)
     const walletAmount = totalearning-totalexpenses
         
+    const { darkModeData } = useContext(darkmodeContext);
 
   useGSAP(() => {
     gsap.from(".upanimation", {
@@ -29,7 +32,7 @@ function walletBar() {
 
   return (
     <>
-    <div className="rounded-2xl bg-[#EAF3FF] h-60 w-[31%] p-5 flex flex-col justify-between" >
+    <div className="rounded-2xl bg-[#EAF3FF] h-60 w-[31%] p-5 shadow-2xl flex flex-col justify-between" style={{backgroundColor: darkModeData?.barcolor,color:darkModeData?.bartxt}}>
             <h3 className='text-[2vw]'>Wallet</h3>
             <div className="upanimation text-[4vw] leading-none text-center overflow-hidden">${walletAmount}</div>
             <div className="flex">

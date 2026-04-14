@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { darkmodeContext } from './context/darkmodeContext';
+import { useContext } from 'react';
 
 function monthlyExpensesGraph() {
   const container = useRef();
@@ -31,6 +33,8 @@ for (let i = 1; i <= 12; i++) {
   graph.push(monthgraph);
 }
 
+    const { darkModeData } = useContext(darkmodeContext);
+
     useGSAP(()=>{
       if (data.length === 0) return;
         gsap.from(container.current.querySelectorAll(".bar"),{
@@ -43,7 +47,7 @@ for (let i = 1; i <= 12; i++) {
     },[data])
   return (
     <>
-    <div className="w-[65%] rounded-2xl bg-[#EAF3FF] h-100 shadow-2xl p-5 ">
+    <div className="w-[65%] rounded-2xl bg-[#EAF3FF] h-100 shadow-2xl p-5 " style={{backgroundColor: darkModeData?.barcolor,color:darkModeData?.bartxt}}>
         <h1 className='text-[2vw]'>Monthly Expenses</h1>
         <div className="h-80 w-full flex justify-center items-center">
           <div ref={container} className="relative h-70 w-[90%] flex justify-evenly items-end border-l-3 border-b-3 border-black">

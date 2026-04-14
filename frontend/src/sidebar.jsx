@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
+import { darkmodeContext } from './context/darkmodeContext';
+import { useContext } from 'react';
 
 function sidebar() {
     const [darkMode,setdarkMode] = useState(false)
     const [data,setdata]=useState([])
+    const { setDarkModeData } = useContext(darkmodeContext)
+
         useEffect(()=>{
           fetch("/financedata.json")
           .then(res=>res.json())
           .then(data=>setdata(data))
         },[])
 
+
     const username = data?.[0]?.name
 
     const darkModefeature = darkMode?{"mode":"dark","symbol":"light_mode","name":"Light mode","bgcolor":"#0F172A","barcolor":"#1E293B","bartxt":"#fff","barhover":"#273449"}:{"mode":"light","symbol":"dark_mode","name":"Dark mode","bgcolor":"#ffffff","barcolor":"#EAF3FF","bartxt":"#000","barhover":"#D6E8FF"}
-    localStorage.setItem('darkMode', JSON.stringify(darkModefeature));
-    
+    // useEffect(()=>{
+    //     localStorage.setItem('darkMode', darkMode);
+    // },[darkMode])
+
+    useEffect(() => {
+    setDarkModeData(darkModefeature)
+  }, [darkMode])
+
 
   return (
     <>
@@ -45,10 +56,10 @@ function sidebar() {
 
             </div>
             <div className="">
-                {/* <button className='flex p-2 rounded-xl h-10 justify-start items-center hover:bg-white/40 gap-1 text-[1.5vw] cursor-pointer' onClick={()=>(setdarkMode(!darkMode))}>
+                <button className='flex p-2 rounded-xl h-10 justify-start items-center hover:bg-white/40 gap-1 text-[1.5vw] cursor-pointer' onClick={()=>(setdarkMode(!darkMode))}>
                     <div className="flex justify-center items-center"><span className='material-symbols-outlined'>{darkModefeature.symbol}</span></div>
                     <h3>{darkModefeature.name}</h3>
-                </button> */}
+                </button>
             </div>
         </div>
     </div>

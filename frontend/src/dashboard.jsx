@@ -4,6 +4,8 @@ import Card from './card'
 import WalletBar from './walletBar'
 import Earning from './earning'
 import TransactionBar from './transactionBar'
+import { useContext } from 'react'
+import { darkmodeContext } from './context/darkmodeContext'
 
 function dashboard() {
   const [data,setdata]=useState([])
@@ -13,14 +15,12 @@ function dashboard() {
     .then(data=>setdata(data))
   },[])
 
-  
-
-  
+   const { darkModeData } = useContext(darkmodeContext);
   return (
     <>
-    <div className="h-screen w-full flex flex-col items-center justify-evenly" >
+    <div className="h-screen w-full flex flex-col items-center justify-evenly" style={{backgroundColor: darkModeData?.bgcolor}}>
       <div className="w-[95%] h-5 flex items-center justify-between">
-        <h1 className='text-[3vw] leading-0'><b>Dashboard</b></h1>
+        <h1 className='text-[3vw] leading-0'><b style={{color: darkModeData?.bartxt}}>Dashboard</b></h1>
           <select className='rounded-xl  text-[1.5vw] cursor-pointer'>
             <option value="user">user</option>
             <option value="Admin">Admin</option>
