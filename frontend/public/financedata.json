@@ -3,6 +3,7 @@
         "name": "John Doe",
         "email": "john.doe@example.com",
         "isAdmin": true,
+        "isDarkmode": true,
         "goal": 30000,
         "card": {
             "number": "1234 5678 9012 3456",
@@ -185,6 +186,7 @@
         "name": "Jane Smith",
         "email": "jane.smith@example.com",
         "isAdmin": false,
+        "isDarkmode": false,
         "earning": 6000,
         "expenses": 4000,
         "goal": 15000,
