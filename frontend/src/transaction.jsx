@@ -54,7 +54,6 @@ function transaction() {
       </div>
       <div className="h-[85vh] w-[95%] flex flex-col  bg-[#EAF3FF]" style={{backgroundColor: darkModeData?.barcolor}}>
         <div className="w-full">
-            {/* <input type="search" placeholder='Search' className='text-center rounded-xl h-[5vh] border-2 border-black' value={search} onChange={(e) => setsearch(e.target.value)} /> */}
             <input type="search" placeholder='Search' className='w-full text-center rounded-xl h-[7vh] border-2 border-black' value={search} onChange={(e) => setsearch(e.target.value)}/>
         </div>
         <div className=" h-full w-full overflow-y-scroll [scrollbar-width:none]">

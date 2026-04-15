@@ -42,9 +42,9 @@ function transactionBar() {
     <div className="w-[32%] h-100 rounded-2xl bg-[#EAF3FF] shadow-2xl p-5 flex flex-col justify-between" style={{backgroundColor: darkModeData?.barcolor,color:darkModeData?.bartxt}}>
             <h1 className='text-[2vw]'>Transaction</h1>
             <input type="search" placeholder='Search' className='text-center rounded-xl h-[5vh] border-2 border-black' value={search} onChange={(e) => setsearch(e.target.value)} />
-            
-            <div className="rounded-2xl h-70 overflow-y-scroll no-scrollbar">
-              <ul className=' flex flex-col items-center '>
+
+            <div className="rounded-2xl h-70 overflow-y-scroll no-scrollbar [scrollbar-width:none]">
+              <ul className=' flex flex-col items-center'>
                 {loading?<Loading />:filterdata?.map((item,index)=>(
                   <li key={index} className='flex items-center justify-evenly h-[8vh] border-b-2 w-full hover:bg-white/40'>
                     <div className="">{item.type?<Earn/>:<Expense/>}</div>

@@ -6,6 +6,7 @@ import { darkmodeContext } from './context/darkmodeContext';
 import { useContext } from 'react';
 
 function monthlyExpensesGraph() {
+  const [graphData, setgraphData] = useState(null)
   const container = useRef();
   const [data,setdata]=useState([])
         useEffect(()=>{
@@ -53,7 +54,14 @@ for (let i = 1; i <= 12; i++) {
           <div ref={container} className="relative h-70 w-[90%] flex justify-evenly items-end border-l-3 border-b-3 border-black">
             {
               graph.map((val,index)=>(
-                <div key={index} className="bar w-[6%]  bg-black flex items-center justify-center" style={{height:`${val*0.0125}%`}}></div>
+                <>
+                {/* <div>flex items-center justify-center</div> */}
+                <div key={index} className="h-full w-[6%] flex flex-col items-center flex-end justify-end">
+                {graphData === index && <span className=''>{val}</span>}
+                <div className="bar w-full bg-black cursor-pointer " onMouseEnter={()=>(setgraphData(index))} onMouseLeave={()=>(setgraphData(null))} style={{height:`${val*0.0125}%`}}></div>
+                </div>
+                </>
+                
               ))
             }
 
