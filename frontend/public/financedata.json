@@ -3,7 +3,7 @@
         "name": "John Doe",
         "email": "john.doe@example.com",
         "isAdmin": false,
-        "isDarkmode": true,
+        "isDarkmode": false,
         "goal": 30000,
         "card": {
             "number": "1234 5678 9012 3456",

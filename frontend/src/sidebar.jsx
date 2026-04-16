@@ -7,14 +7,15 @@ import { isAdminContext } from './context/isAdminContext';
 function sidebar() {
     const [darkMode,setdarkMode] = useState()
     const [data,setdata]=useState([])
-    const [isAdmin,setisAdmin]=useState(data?.[0]?.isAdmin)
     const { setDarkModeData } = useContext(darkmodeContext)
     const {Admin,setAdmin}=useContext(isAdminContext)
 
         useEffect(()=>{
           fetch("/financedata.json")
           .then(res=>res.json())
-          .then(data=>setdata(data))
+          .then(data=>{
+            setdata(data);
+            setAdmin(data?.[0]?.isAdmin)})
         },[])
 
 
@@ -24,9 +25,6 @@ function sidebar() {
         setdarkMode(mode)
     },[mode])
 
-    useEffect(()=>{
-        setisAdmin(Admin)
-    },[Admin])
 
     
 
@@ -41,9 +39,6 @@ function sidebar() {
     useEffect(() => {
     setDarkModeData(darkModefeature)
   }, [darkMode])
-  useEffect(() => {
-    setAdmin(isAdmin)
-  }, [isAdmin])
 
 
   return (
@@ -60,7 +55,7 @@ function sidebar() {
                         <h3>Dashboard</h3>
                     </div>
                 </Link>
-                {isAdmin?
+                {Admin?
                 <>
                 <Link to="/wallet">
                     <div className="flex p-2 rounded-xl h-10 justify-start items-center hover:bg-white/40 gap-1 text-[1.5vw] cursor-pointer">

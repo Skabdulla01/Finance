@@ -10,7 +10,6 @@ import { isAdminContext } from './context/isAdminContext'
 
 function dashboard() {
   const [data,setdata]=useState([])
-  const [role,setrole]=useState()
   useEffect(()=>{
     fetch("/financedata.json")
     .then(res=>res.json())
@@ -19,6 +18,7 @@ function dashboard() {
   
   const { darkModeData } = useContext(darkmodeContext);
   const {Admin,setAdmin} =useContext(isAdminContext);
+  console.log(Admin)
 
 
 
@@ -30,9 +30,9 @@ function dashboard() {
     <div className="h-screen w-full flex flex-col items-center justify-evenly" style={{backgroundColor: darkModeData?.bgcolor}}>
       <div className="w-[95%] h-5 flex items-center justify-between">
         <h1 className='text-[3vw] leading-0'><b style={{color: darkModeData?.bartxt}}>Dashboard</b></h1>
-          <select className='rounded-xl  text-[1.5vw] cursor-pointer' value={Admin?"admin":"user"} onChange={(e)=>(setAdmin(e.target.value==="admin"?true:false))}>
+          <select className='rounded-xl  text-[1.5vw] cursor-pointer' value={Admin?"admin":"user"} onChange={(e)=>(setAdmin(e.target.value==="admin"))}>
             <option value="user">user</option>
-            {Admin?<option value="admin">Admin</option>:""}
+            <option value="admin">Admin</option>
             
           </select>
       </div>
